@@ -4,7 +4,7 @@
 
 Ticketmaster doesn't have a feature that does this. Refreshing my browser every 5 minutes while trying to get cheap Bucs tickets annoyed me, so I decided to build this.
 
-I'm building the backend to start. I'll probably build a frontend. I won't be able to scale this because Ticketmaster's public API limits me to 5000 requests per month.
+I'm building the backend to start. I'll probably build a frontend. I won't be able to scale this because Ticketmaster's public API limits me to 5000 requests per day.
 
 StubHub has a price watching feature, but it sucks because it only notifies you once per day. You'd likely miss any really good deals.
 

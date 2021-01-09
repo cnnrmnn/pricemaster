@@ -1,0 +1,24 @@
+{
+  "scripts": {
+    "build": "babel src -d dist",
+    "development": "nodemon --exec doppler run -- babel-node src/index.js",
+    "start": "node dist/index.js"
+  },
+  "author": "Connor Mann",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/runtime": "^7.12.5",
+    "express": "^4.17.1",
+    "helmet": "^4.3.1",
+    "joi": "^17.3.0",
+    "mongoose": "^5.11.11"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.12.10",
+    "nodemon": "^2.0.7"
+  }
+}

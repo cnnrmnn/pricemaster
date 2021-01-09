@@ -21,7 +21,7 @@ export const subscriptionSchema = Joi.object({
     eventId: Joi.string().required().messages({
         "any.required": "Please provide an event ID"
     }),
-    price: Joi.number().min(0).messages({
+    price: Joi.number().min(0.01).messages({
         "number.min": "Price must be greater than 0"
     })
 }); 

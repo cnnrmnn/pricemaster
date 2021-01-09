@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { Subscription, validateSubscription } from "../models/subscription";
+import subscriptions from "./routes/subscriptions";
 
 export default function (app) {
     const router = Router();
-    
+    subscriptions(router);
+
     app.use("/api", router);
 };

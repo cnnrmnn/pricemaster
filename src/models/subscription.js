@@ -10,7 +10,7 @@ const schema = new mongoose.Schema({
 
 export const Subscription = mongoose.model('Subscription', schema);
 
-const validationSchema = Joi.object({
+export const subscriptionSchema = Joi.object({
     email: Joi.string().email({ minDomainSegments: 2}).messages({
         "string.email": "Invalid email"
     }),
@@ -25,7 +25,3 @@ const validationSchema = Joi.object({
         "number.min": "Price must be greater than 0"
     })
 }); 
-
-export const validateSubscription = function (subscription) {
-    return validationSchema.validate(subscription);
-}; 

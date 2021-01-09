@@ -8,4 +8,4 @@ I'm building the backend to start. I'll probably build a frontend. I won't be ab
 
 StubHub has a price watching feature, but it sucks because it only notifies you once per day. You'd likely miss any really good deals.
 
-If I have enough fun writing this, I might write a ticket-sniping bot that circumvents Ticketmaster's API.
+If I have enough fun writing this, I might write a ticket-sniping bot that circumvents the restrictions of Ticketmaster's public API.

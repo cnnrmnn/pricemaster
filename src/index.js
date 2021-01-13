@@ -1,15 +1,15 @@
-import express from "express";
-import helmet from "helmet";
-import connectMongo from "./db/mongo";
-import router from "./api/router";
+import express from 'express';
+import helmet from 'helmet';
+import connectMongo from './db/mongo';
+import router from './api/router';
 
 const app = express();
 
 async function start() {
-    console.log("Connecting to database...");
+    console.log('Connecting to database...');
     await connectMongo();
-    console.log("Connected to database.");
-     
+    console.log('Connected to database.');
+
     app.use(express.json());
     app.use(helmet());
 

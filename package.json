@@ -1,29 +1,29 @@
 {
-  "scripts": {
-    "build": "babel src -d dist",
-    "development": "nodemon --exec doppler run -- babel-node src/index.js",
-    "start": "node dist/index.js"
-  },
-  "author": "Connor Mann",
-  "license": "MIT",
-  "dependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
-    "@babel/plugin-transform-runtime": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "@babel/runtime": "^7.12.5",
-    "axios": "^0.21.1",
-    "express": "^4.17.1",
-    "helmet": "^4.3.1",
-    "joi": "^17.3.0",
-    "mongoose": "^5.11.11",
-    "puppeteer": "^5.5.0",
-    "puppeteer-extra": "^3.1.15",
-    "puppeteer-extra-plugin-adblocker": "^2.11.9",
-    "puppeteer-extra-plugin-stealth": "^2.6.5"
-  },
-  "devDependencies": {
-    "@babel/node": "^7.12.10",
-    "nodemon": "^2.0.7"
-  }
+    "scripts": {
+        "build": "babel src -d dist",
+        "development": "nodemon --exec doppler run -- babel-node src/index.js",
+        "start": "node dist/index.js"
+    },
+    "author": "Connor Mann",
+    "license": "MIT",
+    "dependencies": {
+        "@babel/cli": "^7.12.10",
+        "@babel/core": "^7.12.10",
+        "@babel/plugin-transform-runtime": "^7.12.10",
+        "@babel/preset-env": "^7.12.11",
+        "@babel/runtime": "^7.12.5",
+        "axios": "^0.21.1",
+        "express": "^4.17.1",
+        "helmet": "^4.3.1",
+        "joi": "^17.3.0",
+        "mongoose": "^5.11.11",
+        "puppeteer": "^5.5.0",
+        "puppeteer-extra": "^3.1.15",
+        "puppeteer-extra-plugin-adblocker": "^2.11.9",
+        "puppeteer-extra-plugin-stealth": "^2.6.5"
+    },
+    "devDependencies": {
+        "@babel/node": "^7.12.10",
+        "nodemon": "^2.0.7"
+    }
 }

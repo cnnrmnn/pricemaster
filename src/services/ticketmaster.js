@@ -13,21 +13,6 @@ async function getEvent(eventId) {
     return data;
 }
 
-export async function updateEventInfo(eventId) {
-    const { name, url, dates } = await getEvent(eventId);
-    const cheapestTicket = await getCheapestTicket(url);
-    try {
-        await Event.findByIdAndUpdate(
-            eventId,
-            { name, url, date: dates.start.dateTime, cheapestTicket },
-            { upsert: true }
-        );
-    } catch (err) {
-        console.error(`Failed to update event info for ${eventId}`);
-        console.log(err);
-    }
-}
-
 async function getCheapestTicket(eventUrl) {
     let seat, price;
     const browser = await puppeteer.launch({ headless: true });
@@ -50,4 +35,36 @@ async function getCheapestTicket(eventUrl) {
     }
     await browser.close();
     return { seat, price: parseInt(price.replace(/,/g, '').substring(1)) };
+}
+
+export async function updateEventInfo(eventId) {
+    const { name, url, dates } = await getEvent(eventId);
+    const cheapestTicket = await getCheapestTicket(url);
+    try {
+        await Event.findByIdAndUpdate(
+            eventId,
+            { name, url, date: dates.start.dateTime, cheapestTicket },
+            { upsert: true }
+        );
+    } catch (err) {
+        console.error(`Failed to update event info for ${eventId}`);
+    }
+}
+
+export async function updateCheapestTicket(eventId) {
+    const event = await Event.findById(eventId);
+    if (!event) {
+        console.error(
+            `Couldn't find event ${eventId}. Couldn't update cheapest ticket.`
+        );
+        return;
+    }
+    const cheapestTicket = await getCheapestTicket(event.url);
+    event.cheapestTicket = cheapestTicket;
+    try {
+        await event.save();
+        return event;
+    } catch (err) {
+        console.error(`Failed to update cheapest ticket for event ${eventId}.`);
+    }
 }

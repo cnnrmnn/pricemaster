@@ -14,27 +14,27 @@ async function getEvent(eventId) {
 }
 
 async function getCheapestTicket(eventUrl) {
-    let seat, price;
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     await page.goto(eventUrl);
     await page.waitForTimeout(5000);
+    await page.screenshot({ path: 'example.png' });
     try {
-        seat = await page.evaluate(
+        const seat = await page.evaluate(
             () => document.querySelector('.quick-picks__item-desc').innerText
         );
-        price = await page.evaluate(
+        const price = await page.evaluate(
             () =>
                 document
                     .querySelector('[id*="quickpick-buy-button-qp"]')
                     .children.item(0)
                     .children.item(0).innerText
         );
+        return { seat, price: parseInt(price.replace(/,/g, '').substring(1)) };
     } catch (err) {
         console.error('Failed to scrape ticket information.');
     }
     await browser.close();
-    return { seat, price: parseInt(price.replace(/,/g, '').substring(1)) };
 }
 
 export async function updateEventInfo(eventId) {

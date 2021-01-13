@@ -2,6 +2,7 @@ import axios from 'axios';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import AdblockerPlugin from 'puppeteer-extra-plugin-adblocker';
+import { Event } from '../models/event';
 
 puppeteer.use(StealthPlugin());
 puppeteer.use(AdblockerPlugin());
@@ -12,18 +13,24 @@ async function getEvent(eventId) {
     return data;
 }
 
-async function getEventURL(eventId) {
-    const { url } = await getEvent(eventId);
-    console.log(url);
-    return url;
+export async function updateEventInfo(eventId) {
+    const { name, url, dates } = await getEvent(eventId);
+    try {
+        await Event.findByIdAndUpdate(
+            eventId,
+            { name, url, date: dates.start.dateTime },
+            { upsert: true }
+        );
+    } catch (err) {
+        console.error(`Failed to update event info for ${eventId}`);
+    }
 }
 
-async function getCheapestTicket(eventId) {
+async function getCheapestTicket(eventUrl) {
     let seat, price;
-    const eventURL = await getEventURL(eventId);
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
-    await page.goto(eventURL);
+    await page.goto(eventUrl);
     await page.waitForTimeout(5000);
     try {
         seat = await page.evaluate(

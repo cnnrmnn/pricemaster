@@ -2,6 +2,7 @@ import express from 'express';
 import validateObjectId from '../middleware/validateObjectId';
 import validateWith from '../middleware/validateWith';
 import { Subscription, subscriptionSchema } from '../../models/subscription';
+import { updateEventInfo } from '../../services/ticketmaster';
 
 const subscriptions = express.Router();
 
@@ -22,6 +23,7 @@ export default function (router) {
         validateWith(subscriptionSchema),
         async (req, res) => {
             const subscription = await Subscription.create(req.body);
+            await updateEventInfo(subscription.eventId);
             res.status(201).send(subscription);
         }
     );

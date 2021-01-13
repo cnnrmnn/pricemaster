@@ -17,6 +17,16 @@ const schema = new mongoose.Schema({
         type: Date,
         required: true,
     },
+    cheapestTicket: {
+        seat: {
+            type: String,
+            required: true,
+        },
+        price: {
+            type: Number,
+            required: true,
+        },
+    },
     complete: {
         type: Boolean,
         default: false,

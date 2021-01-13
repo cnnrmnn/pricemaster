@@ -15,14 +15,16 @@ async function getEvent(eventId) {
 
 export async function updateEventInfo(eventId) {
     const { name, url, dates } = await getEvent(eventId);
+    const cheapestTicket = await getCheapestTicket(url);
     try {
         await Event.findByIdAndUpdate(
             eventId,
-            { name, url, date: dates.start.dateTime },
+            { name, url, date: dates.start.dateTime, cheapestTicket },
             { upsert: true }
         );
     } catch (err) {
         console.error(`Failed to update event info for ${eventId}`);
+        console.log(err);
     }
 }
 
@@ -44,8 +46,8 @@ async function getCheapestTicket(eventUrl) {
                     .children.item(0).innerText
         );
     } catch (err) {
-        console.log('Failed to scrape ticket information.');
+        console.error('Failed to scrape ticket information.');
     }
     await browser.close();
-    return { seat, price };
+    return { seat, price: parseInt(price.replace(/,/g, '').substring(1)) };
 }

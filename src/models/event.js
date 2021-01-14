@@ -27,10 +27,7 @@ const schema = new mongoose.Schema({
             required: true,
         },
     },
-    complete: {
-        type: Boolean,
-        default: false,
-    },
+    subscriptionIds: [String],
 });
 
 export const Event = mongoose.model('Event', schema);

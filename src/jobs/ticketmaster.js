@@ -1,5 +1,6 @@
 import { Subscription } from '../models/subscription';
 import { updateCheapestTicket } from '../services/ticketmaster';
+import { sendText } from '../services/twilio';
 
 export default function (agenda) {
     agenda.define('updateCheapestTicket', async (job) => {
@@ -11,9 +12,23 @@ export default function (agenda) {
             );
             return;
         }
+        for (subscriptionId in event.subscriptionIds) {
+            const subscription = await Subscription.findById(subscriptionId);
+            if (!subscription) {
+                console.error(
+                    `Subscription ${subscriptionId} not found for event ${eventId}`
+                );
+                continue;
+            }
+            // maybe isolate some of this at some point
+            if (subscription.phone)
+                await sendText(
+                    `+${subscription.phone}`,
+                    `Ticketmaster Price Watcher: A new ticket for ${event.name} in ${subscription.cheapestTicket.seat} is listed for ${subscription.cheapestTicket.price}. Purchase here: ${subscription.cheapestTicket.price}.`
+                );
 
-        // check updated event.cheapestTicket.price against any subscriptions with
-        // corresponding event id and send notifications via applicable channels if
-        // appropriate
+            if (subscription.email);
+            //send email
+        }
     });
 }

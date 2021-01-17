@@ -1,6 +1,7 @@
 import { Subscription } from '../models/subscription';
 import { updateCheapestTicket } from '../services/ticketmaster';
 import { sendText } from '../services/twilio';
+import { sendEmail } from '../services/mailgun';
 
 export default function (agenda) {
     agenda.define('updateCheapestTicket', async (job) => {
@@ -27,8 +28,12 @@ export default function (agenda) {
                     `Ticketmaster Price Watcher: A new ticket for ${event.name} in ${subscription.cheapestTicket.seat} is listed for ${subscription.cheapestTicket.price}. Purchase here: ${subscription.cheapestTicket.price}.`
                 );
 
-            if (subscription.email);
-            //send email
+            if (subscription.email)
+                await sendEmail(
+                    subscription.email,
+                    `${event.name} Price Alert`,
+                    `Ticketmaster Price Watcher: A new ticket for ${event.name} in ${subscription.cheapestTicket.seat} is listed for ${subscription.cheapestTicket.price}. Purchase here: ${subscription.cheapestTicket.price}.`
+                );
         }
     });
 }

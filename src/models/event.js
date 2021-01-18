@@ -27,6 +27,7 @@ const schema = new mongoose.Schema({
             required: true,
         },
     },
+    jobId: String,
     subscriptionIds: [String],
 });
 

@@ -3,6 +3,7 @@ import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import AdblockerPlugin from 'puppeteer-extra-plugin-adblocker';
 import { Event } from '../models/event';
+import { upsertEvent } from './event';
 
 puppeteer.use(StealthPlugin());
 puppeteer.use(AdblockerPlugin());
@@ -41,19 +42,15 @@ export async function updateEventInfo(eventId, subscriptionId) {
     const { name, url, dates } = await getEvent(eventId);
     const cheapestTicket = await getCheapestTicket(url);
     try {
-        await Event.findByIdAndUpdate(
-            eventId,
-            {
-                name,
-                url,
-                date: dates.start.dateTime,
-                cheapestTicket,
-                $push: { subscriptionIds: subscriptionId },
-            },
-            { upsert: true }
-        );
+        await upsertEvent(eventId, {
+            name,
+            url,
+            date: dates.start.dateTime,
+            cheapestTicket,
+            $push: { subscriptionIds: subscriptionId },
+        });
     } catch (err) {
-        console.error(`Failed to update event info for ${eventId}`);
+        console.error(`Failed to update event info for ${eventId}.`);
     }
 }
 

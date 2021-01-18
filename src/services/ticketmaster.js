@@ -18,7 +18,9 @@ async function getCheapestTicket(eventUrl) {
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     await page.goto(eventUrl);
-    await page.waitForTimeout(5000);
+    await page.waitForNavigation({
+        waitUntil: 'networkidle0',
+    });
     try {
         const seat = await page.evaluate(
             () => document.querySelector('.quick-picks__item-desc').innerText

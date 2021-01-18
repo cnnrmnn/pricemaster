@@ -2,8 +2,11 @@ import express from 'express';
 import validateObjectId from '../middleware/validateObjectId';
 import validateWith from '../middleware/validateWith';
 import { Subscription, subscriptionSchema } from '../../models/subscription';
-import { updateEventInfo } from '../../services/ticketmaster';
-import { deleteSubscription } from '../../services/subscription';
+import {
+    createSubscription,
+    updateSubscription,
+    deleteSubscription,
+} from '../../services/subscription';
 
 const subscriptions = express.Router();
 
@@ -23,8 +26,7 @@ export default function (router) {
         '/',
         validateWith(subscriptionSchema),
         async (req, res) => {
-            const subscription = await Subscription.create(req.body);
-            await updateEventInfo(subscription.eventId, subscription._id);
+            const subscription = await createSubscription(req.body);
             res.status(201).send(subscription);
         }
     );
@@ -33,10 +35,9 @@ export default function (router) {
         '/:id',
         [validateObjectId, validateWith(subscriptionSchema)],
         async (req, res) => {
-            const subscription = await Subscription.findByIdAndUpdate(
+            const subscription = await updateSubscription(
                 req.params.id,
-                req.body,
-                { new: true }
+                req.body
             );
             if (!subscription)
                 return res.status(404).send({

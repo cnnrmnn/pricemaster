@@ -1,8 +1,9 @@
 import express from 'express';
 import helmet from 'helmet';
 import connectMongo from './db/mongo';
-import { loadJobs } from './jobs/jobs';
 import router from './api/router';
+import error from './api/middleware/error';
+import { loadJobs } from './jobs/jobs';
 
 const app = express();
 
@@ -17,6 +18,7 @@ async function start() {
 
     app.use(express.json());
     app.use(helmet());
+    app.use(error);
 
     router(app);
 

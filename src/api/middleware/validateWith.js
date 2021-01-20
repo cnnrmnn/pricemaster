@@ -1,10 +1,9 @@
+import { BadRequestError } from '../../errors';
+
 export default function (schema) {
-    return (req, res, next) => {
+    return function (req, res, next) {
         const { error } = schema.validate(req.body);
-        if (error)
-            return res.status(400).send({
-                error: error.details[0].message,
-            });
+        if (error) next(new BadRequestError(error.details[0].message));
         next();
     };
 }

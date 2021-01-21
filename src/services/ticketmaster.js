@@ -32,12 +32,13 @@ async function getCheapestTicket(eventUrl) {
                     .children.item(0)
                     .children.item(0).innerText
         );
+        await browser.close();
         return { seat, price: parseInt(price.replace(/,/g, '').substring(1)) };
     } catch (err) {
+        await browser.close();
         console.error(`Failed to scrape ticket information on ${eventUrl}`);
         console.error(err);
     }
-    await browser.close();
 }
 
 export async function updateEventInfo(eventId, subscriptionId) {

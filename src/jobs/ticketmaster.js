@@ -22,18 +22,19 @@ export default function (agenda) {
                 );
                 continue;
             }
+            if (event.cheapestTicket.price > subscription.price) continue;
             // maybe isolate some of this at some point
-            if (subscription.phone)
+            if (subscription.phone) {
                 await sendText(
                     `+${subscription.phone}`,
-                    `Ticketmaster Price Watcher: A new ticket for ${event.name} in ${subscription.cheapestTicket.seat} is listed for ${subscription.cheapestTicket.price}. Purchase here: ${subscription.cheapestTicket.price}.`
+                    `Ticketmaster Price Watcher: A new ticket for ${event.name} in ${event.cheapestTicket.seat} is listed for ${event.cheapestTicket.price}. Purchase here: ${event.url}.`
                 );
-
+            }
             if (subscription.email)
                 await sendEmail(
                     subscription.email,
                     `${event.name} Price Alert`,
-                    `Ticketmaster Price Watcher: A new ticket for ${event.name} in ${subscription.cheapestTicket.seat} is listed for ${subscription.cheapestTicket.price}. Purchase here: ${subscription.cheapestTicket.price}.`
+                    `Ticketmaster Price Watcher: A new ticket for ${event.name} in ${event.cheapestTicket.seat} is listed for ${event.cheapestTicket.price}. Purchase here: ${event.url}.`
                 );
         }
     });

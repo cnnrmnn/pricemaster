@@ -8,10 +8,10 @@ export async function createSubscription(body) {
     return subscription;
 }
 
-export async function updateSubscription(id, body) {
+export async function updateSubscription(subscriptionId, body) {
     const subscription = await Subscription.findByIdAndUpdate(
-        req.params.id,
-        req.body,
+        subscriptionId,
+        body,
         { new: true }
     );
     return subscription;

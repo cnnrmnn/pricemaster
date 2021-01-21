@@ -34,7 +34,7 @@ async function getCheapestTicket(eventUrl) {
         );
         return { seat, price: parseInt(price.replace(/,/g, '').substring(1)) };
     } catch (err) {
-        console.error('Failed to scrape ticket information.');
+        console.error(`Failed to scrape ticket information on ${eventUrl}`);
         console.error(err);
     }
     await browser.close();
@@ -53,6 +53,7 @@ export async function updateEventInfo(eventId, subscriptionId) {
         });
     } catch (err) {
         console.error(`Failed to update event info for ${eventId}.`);
+        console.error(err);
     }
 }
 
@@ -71,5 +72,6 @@ export async function updateCheapestTicket(eventId) {
         return event;
     } catch (err) {
         console.error(`Failed to update cheapest ticket for event ${eventId}.`);
+        console.error(err);
     }
 }

@@ -2,7 +2,10 @@ import { Event } from '../models/event';
 import { agenda } from '../jobs/jobs';
 
 export async function upsertEvent(id, body) {
-    const event = await Event.findByIdAndUpdate(id, body, { upsert: true });
+    const event = await Event.findByIdAndUpdate(id, body, {
+        upsert: true,
+        new: true,
+    });
     if (!event) {
         console.error(`Failed to upsert event ${id}.`);
         return;

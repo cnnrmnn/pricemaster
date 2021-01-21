@@ -2,7 +2,7 @@ import { Event } from '../models/event';
 import { agenda } from '../jobs/jobs';
 
 export async function upsertEvent(id, body) {
-    const event = await Event.findByIdAndUpdate(eventId, body, {
+    const event = await Event.findByIdAndUpdate(id, body, {
         upsert: true,
     });
     if (!event) {

@@ -14,7 +14,7 @@ export default function (agenda) {
             return;
         }
         for (const index in event.subscriptionIds) {
-            const subscriptionId = subscriptionIds[index];
+            const subscriptionId = event.subscriptionIds[index];
             const subscription = await Subscription.findById(subscriptionId);
             if (!subscription) {
                 console.error(

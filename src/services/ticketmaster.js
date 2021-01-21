@@ -15,7 +15,7 @@ async function getEvent(eventId) {
 }
 
 async function getCheapestTicket(eventUrl) {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.goto(eventUrl);
     await page.waitForNavigation({

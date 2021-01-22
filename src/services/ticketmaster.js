@@ -58,21 +58,16 @@ export async function updateEventInfo(eventId, subscriptionId) {
     }
 }
 
-export async function updateCheapestTicket(eventId) {
-    const event = await Event.findById(eventId);
-    if (!event) {
-        console.error(
-            `Couldn't find event ${eventId}. Couldn't update cheapest ticket.`
-        );
-        return;
-    }
+export async function updateCheapestTicket(event) {
     const cheapestTicket = await getCheapestTicket(event.url);
     event.cheapestTicket = cheapestTicket;
     try {
         await event.save();
         return event;
     } catch (err) {
-        console.error(`Failed to update cheapest ticket for event ${eventId}.`);
+        console.error(
+            `Failed to update cheapest ticket for event ${event._id}.`
+        );
         console.error(err);
     }
 }

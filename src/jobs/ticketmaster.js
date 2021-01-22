@@ -14,13 +14,9 @@ export default function (agenda) {
             );
             return;
         }
+
         const { cheapestTicket } = await updateCheapestTicket(event);
-        if (!event) {
-            console.error(
-                `Failed to find event ${eventId} or update its cheapest ticket.`
-            );
-            return;
-        }
+
         for (const index in event.subscriptionIds) {
             const subscriptionId = event.subscriptionIds[index];
             const subscription = await Subscription.findById(subscriptionId);
@@ -30,14 +26,15 @@ export default function (agenda) {
                 );
                 continue;
             }
+
             if (cheapestTicket.price > subscription.price) continue;
+
             // maybe isolate some of this at some point
-            if (subscription.phone) {
+            if (subscription.phone)
                 await sendText(
                     `+${subscription.phone}`,
                     `Ticketmaster Price Watcher: A new ticket for ${event.name} in ${cheapestTicket.seat} is listed for ${cheapestTicket.price}. Purchase here: ${event.url}.`
                 );
-            }
             if (subscription.email)
                 await sendEmail(
                     subscription.email,

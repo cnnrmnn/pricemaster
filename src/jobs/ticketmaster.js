@@ -8,6 +8,7 @@ export default function (agenda) {
     agenda.define('updateCheapestTicket', async (job) => {
         const { eventId } = job.attrs.data;
         const event = await Event.findById(eventId);
+        const { seat } = event.cheapestTicket;
         if (!event) {
             console.error(
                 `Couldn't find event ${eventId}. Couldn't update cheapest ticket.`
@@ -27,6 +28,7 @@ export default function (agenda) {
                 continue;
             }
 
+            if (seat === cheapestTicket.seat) continue;
             if (cheapestTicket.price > subscription.price) continue;
 
             // maybe isolate some of this at some point

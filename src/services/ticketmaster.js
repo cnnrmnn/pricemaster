@@ -2,7 +2,6 @@ import axios from 'axios';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import AdblockerPlugin from 'puppeteer-extra-plugin-adblocker';
-import { Event } from '../models/event';
 import { upsertEvent } from './event';
 
 puppeteer.use(StealthPlugin());

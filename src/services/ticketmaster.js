@@ -42,13 +42,11 @@ async function getCheapestTicket(eventUrl) {
 
 export async function updateEventInfo(eventId, subscriptionId) {
     const { name, url, dates } = await getEvent(eventId);
-    const cheapestTicket = await getCheapestTicket(url);
     try {
         await upsertEvent(eventId, {
             name,
             url,
             date: dates.start.dateTime,
-            cheapestTicket,
             $push: { subscriptionIds: subscriptionId },
         });
     } catch (err) {

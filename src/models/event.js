@@ -20,11 +20,9 @@ const schema = new mongoose.Schema({
     cheapestTicket: {
         seat: {
             type: String,
-            required: true,
         },
         price: {
             type: Number,
-            required: true,
         },
     },
     jobId: String,

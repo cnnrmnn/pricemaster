@@ -18,7 +18,7 @@ export default function (agenda) {
 
         const { cheapestTicket } = await updateCheapestTicket(event);
 
-        if (seat === cheapestTicket.seat) continue;
+        if (seat === cheapestTicket.seat) return;
 
         for (const index in event.subscriptionIds) {
             const subscriptionId = event.subscriptionIds[index];

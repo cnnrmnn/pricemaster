@@ -7,18 +7,19 @@ import {
     updateSubscription,
     deleteSubscription,
 } from '../../services/subscription';
+import { NotFoundError } from '../../errors';
 
 const subscriptions = express.Router();
 
 export default function (router) {
     router.use('/subscriptions', subscriptions);
 
-    subscriptions.get('/:id', validateObjectId, async (req, res) => {
+    subscriptions.get('/:id', validateObjectId, async (req, res, next) => {
         const subscription = await Subscription.findById(req.params.id);
         if (!subscription)
-            return res.status(404).send({
-                error: `Couldn't find subscription ${req.params.id}`,
-            });
+            return next(
+                new NotFoundError(`Couldn't find subscription ${req.params.id}`)
+            );
         res.send(subscription);
     });
 
@@ -34,25 +35,27 @@ export default function (router) {
     subscriptions.put(
         '/:id',
         [validateObjectId, validateWith(subscriptionSchema)],
-        async (req, res) => {
+        async (req, res, next) => {
             const subscription = await updateSubscription(
                 req.params.id,
                 req.body
             );
             if (!subscription)
-                return res.status(404).send({
-                    error: `Couldn't find subscription ${req.params.id}`,
-                });
+                return next(
+                    new NotFoundError(
+                        `Couldn't find subscription ${req.params.id}`
+                    )
+                );
             res.send(subscription);
         }
     );
 
-    subscriptions.delete('/:id', validateObjectId, async (req, res) => {
+    subscriptions.delete('/:id', validateObjectId, async (req, res, next) => {
         const subscription = await deleteSubscription(req.params.id);
         if (!subscription)
-            return res.status(404).send({
-                error: `Couldn't find subscription ${req.params.id}`,
-            });
+            return next(
+                new NotFoundError(`Couldn't find subscription ${req.params.id}`)
+            );
         res.send(subscription);
     });
 }

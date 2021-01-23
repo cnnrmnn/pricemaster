@@ -18,6 +18,8 @@ export default function (agenda) {
 
         const { cheapestTicket } = await updateCheapestTicket(event);
 
+        if (seat === cheapestTicket.seat) continue;
+
         for (const index in event.subscriptionIds) {
             const subscriptionId = event.subscriptionIds[index];
             const subscription = await Subscription.findById(subscriptionId);
@@ -28,7 +30,6 @@ export default function (agenda) {
                 continue;
             }
 
-            if (seat === cheapestTicket.seat) continue;
             if (cheapestTicket.price > subscription.price) continue;
 
             // maybe isolate some of this at some point

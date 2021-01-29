@@ -7,9 +7,14 @@ const client = twilio(
 );
 
 export async function sendText(to, body) {
-    client.messages.create({
-        body,
-        to,
-        from: process.env.TWILIO_PHONE_NUMBER,
-    });
+    try {
+        const message = await client.messages.create({
+            body,
+            to,
+            from: process.env.TWILIO_PHONE_NUMBER,
+        });
+    } catch (err) {
+        console.error(`Failed to send text to ${to}`);
+        console.error(err);
+    }
 }

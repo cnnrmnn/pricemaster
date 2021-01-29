@@ -2,8 +2,9 @@ import { Event } from '../models/event';
 import { agenda } from '../jobs/jobs';
 
 export async function upsertEvent(eventId, body) {
+    let event;
     try {
-        const event = await Event.findByIdAndUpdate(eventId, body, {
+        event = await Event.findByIdAndUpdate(eventId, body, {
             upsert: true,
             new: true,
         });
@@ -18,8 +19,9 @@ export async function upsertEvent(eventId, body) {
     }
 
     if (!event.jobId) {
+        let job;
         try {
-            const job = agenda.create('updateCheapestTicket', { eventId });
+            job = agenda.create('updateCheapestTicket', { eventId });
             job.repeatEvery(process.env.UPDATE_INTERVAL, {
                 endDate: event.date,
             });

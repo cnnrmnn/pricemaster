@@ -60,11 +60,11 @@ export async function updateCheapestTicket(event) {
     event.cheapestTicket = cheapestTicket;
     try {
         await event.save();
-        return event;
     } catch (err) {
         console.error(
             `Failed to update cheapest ticket for event ${event._id}`
         );
         console.error(err);
     }
+    return event;
 }

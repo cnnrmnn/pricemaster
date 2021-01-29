@@ -50,7 +50,7 @@ export async function updateEventInfo(eventId, subscriptionId) {
             $push: { subscriptionIds: subscriptionId },
         });
     } catch (err) {
-        console.error(`Failed to update event info for ${eventId}.`);
+        console.error(`Failed to update event info for ${eventId}`);
         console.error(err);
     }
 }
@@ -63,7 +63,7 @@ export async function updateCheapestTicket(event) {
         return event;
     } catch (err) {
         console.error(
-            `Failed to update cheapest ticket for event ${event._id}.`
+            `Failed to update cheapest ticket for event ${event._id}`
         );
         console.error(err);
     }

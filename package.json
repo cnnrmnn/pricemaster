@@ -1,11 +1,12 @@
 {
+    "name": "pricemaster",
+    "author": "Connor Mann",
+    "license": "MIT",
     "scripts": {
         "build": "babel src -d dist",
         "development": "nodemon --exec doppler run -- babel-node src/index.js",
         "start": "node dist/index.js"
     },
-    "author": "Connor Mann",
-    "license": "MIT",
     "dependencies": {
         "@babel/cli": "^7.12.10",
         "@babel/core": "^7.12.10",

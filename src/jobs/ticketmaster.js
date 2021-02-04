@@ -36,13 +36,13 @@ export default function (agenda) {
             if (subscription.phone)
                 await sendText(
                     `+${subscription.phone}`,
-                    `Ticketmaster Price Watcher: A new ticket for ${event.name} in ${cheapestTicket.seat} is listed for ${cheapestTicket.price}. Purchase here: ${event.url}.`
+                    `pricemaster: A new ticket for ${event.name} in ${cheapestTicket.seat} is listed for ${cheapestTicket.price}. Purchase here: ${event.url}.`
                 );
             if (subscription.email)
                 await sendEmail(
                     subscription.email,
                     `${event.name} Price Alert`,
-                    `Ticketmaster Price Watcher: A new ticket for ${event.name} in ${cheapestTicket.seat} is listed for ${cheapestTicket.price}. Purchase here: ${event.url}.`
+                    `pricemaster: A new ticket for ${event.name} in ${cheapestTicket.seat} is listed for ${cheapestTicket.price}. Purchase here: ${event.url}.`
                 );
         }
     });

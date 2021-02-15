@@ -13,8 +13,8 @@ export async function sendText(to, body) {
             to,
             from: process.env.TWILIO_PHONE_NUMBER,
         });
-    } catch (err) {
+    } catch (error) {
         console.error(`Failed to send text to ${to}`);
-        console.error(err);
+        console.error(error);
     }
 }

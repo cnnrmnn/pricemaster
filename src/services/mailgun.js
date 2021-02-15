@@ -11,8 +11,8 @@ export async function sendEmail(to, subject, text) {
                 text,
             },
         });
-    } catch (err) {
+    } catch (error) {
         console.error(`Failed to send email ${subject} to ${to}`);
-        console.error(err);
+        console.error(error);
     }
 }

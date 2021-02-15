@@ -8,9 +8,9 @@ export async function upsertEvent(eventId, body) {
             upsert: true,
             new: true,
         });
-    } catch (err) {
+    } catch (error) {
         console.error(`Failed to upsert event ${eventId}.`);
-        console.error(err);
+        console.error(error);
     }
 
     if (!event) {
@@ -26,7 +26,7 @@ export async function upsertEvent(eventId, body) {
                 endDate: event.date,
             });
             await job.save();
-        } catch (err) {
+        } catch (error) {
             console.error(
                 `Failed to create updateCheapestTicket job for event ${eventId}`
             );
@@ -35,11 +35,11 @@ export async function upsertEvent(eventId, body) {
         try {
             event.jobId = job.attrs._id;
             await event.save();
-        } catch (err) {
+        } catch (error) {
             console.error(
                 `Failed to save job ${job.attrs._id} to event ${eventId}`
             );
-            console.error(err);
+            console.error(error);
         }
     }
     return event;

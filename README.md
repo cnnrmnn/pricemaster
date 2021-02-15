@@ -14,4 +14,4 @@ Twilio is used for SMS, and Mailgun is used for email.
 
 ## Disclaimer
 
-I'm not currently hosting this anywhere, but anyone is welcome to do so if they'd like. **pricemaster** is definitely not built for scale and it likely wouldn't work at great scale given the scarcity of cheap tickets. I didn't build much error checking into **pricemaster**, so use with caution. There are several series of database queries that should be implemented as transactions, but aren't.
+I'm not currently hosting this anywhere, but anyone is welcome to do so if they'd like to. **pricemaster** is not built for scale and it likely wouldn't work at great scale given the scarcity of cheap tickets. I didn't build much error checking into **pricemaster**, so use with caution. There are several series of database queries that should be implemented as transactions but aren't.

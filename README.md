@@ -2,7 +2,7 @@
 
 **pricemaster** sends you SMS and/or email notifications when the cheapest ticket for an event on Ticketmaster meets your price criteria.
 
-Ticketmaster doesn't have a feature that does this. Refreshing my browser every 5 minutes while trying to get cheap Bucs tickets annoyed me, so I decided to build this.
+Ticketmaster doesn't have a feature that does this. Refreshing my browser every 5 minutes while trying to get cheap NFL tickets annoyed me, so I decided to build this.
 
 ## How it works
 
